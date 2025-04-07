@@ -14,18 +14,45 @@ val javaProjects = listOf(
 )
 
 plugins {
+    alias(libs.plugins.spotbugs)
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.spring.dependency.management)
+
+    alias(libs.plugins.gradle.liquibase)
+
     java
     `java-library`
     `maven-publish`
     pmd
-    alias(libs.plugins.spotbugs)
-    alias(libs.plugins.spotless)
-    alias(libs.plugins.spring.dependency.management)
 }
 
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(23))
+    }
+}
+
+dependencies {
+    liquibaseRuntime(libs.liquibase.core)
+    liquibaseRuntime(libs.mysql)
+}
+
+liquibase {
+    activities {
+        all {
+            properties {
+                changeLogFile.set("db-changelog.mysql.yaml")
+                driver.set("com.mysql.jdbc.Driver")
+            }
+        }
+
+        register("deploy") {
+            properties {
+                url.set("jdbc:mysql://server-name:server-port/database-name")
+                username.set(System.getenv("DB_USER"))
+                password.set(System.getenv("DB_PASSWORD"))
+            }
+        }
     }
 }
 

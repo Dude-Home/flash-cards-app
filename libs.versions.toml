@@ -1,7 +1,11 @@
 [versions]
 spotbugs = "6.1.7"
 spotless = "7.0.2"
-spring-dependency-management = "1.1.7"
+spring-dm = "1.1.7"
+gradle_liquibase = "1.5.2"
+
+liquibase = "4.24.0"
+mysql = "8.0.33"
 
 spring = "3.4.4"
 junit = "5.12.1"
@@ -11,10 +15,13 @@ junit-platform = "1.12.1"
 [plugins]
 spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugs" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
-
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dm" }
+gradle_liquibase = { id = "org.jetbrains.gradle.liquibase", version.ref = "gradle_liquibase" }
 
 [libraries]
+liquibase-core = { module = "org.liquibase:liquibase-core", version.ref = "liquibase" }
+mysql = { module = "mysql:mysql-connector-java", version.ref = "mysql" }
+
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring" }
 spring-boot-starter-data-rest = { module = "org.springframework.boot:spring-boot-starter-data-rest", version.ref = "spring" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring" }
