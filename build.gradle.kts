@@ -13,17 +13,27 @@ val javaProjects = listOf(
     "flash-cards-api"
 )
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath(libs.liquibase.core)
+    }
+}
+
 plugins {
-    alias(libs.plugins.spotbugs)
-    alias(libs.plugins.spotless)
-    alias(libs.plugins.spring.dependency.management)
-
-    alias(libs.plugins.gradle.liquibase)
-
     java
     `java-library`
     `maven-publish`
     pmd
+
+    alias(libs.plugins.spotbugs)
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.dotenv)
+
+    alias(libs.plugins.gradle.liquibase)
+    alias(libs.plugins.spring.dependency.management)
 }
 
 java {
@@ -33,26 +43,19 @@ java {
 }
 
 dependencies {
+    liquibaseRuntime(libs.picocli)
     liquibaseRuntime(libs.liquibase.core)
     liquibaseRuntime(libs.mysql)
 }
 
 liquibase {
-    activities {
-        all {
-            properties {
-                changeLogFile.set("db-changelog.mysql.yaml")
-                driver.set("com.mysql.jdbc.Driver")
-            }
-        }
-
-        register("deploy") {
-            properties {
-                url.set("jdbc:mysql://server-name:server-port/database-name")
-                username.set(System.getenv("DB_USER"))
-                password.set(System.getenv("DB_PASSWORD"))
-            }
-        }
+    activities.register("updateDB") {
+        arguments = mapOf(
+            "changelogFile" to "db-changelog/db-changelog-master.mysql.yaml",
+            "url" to env.DB_URL.value,
+            "username" to env.DB_USER.value,
+            "password" to env.DB_PASSWORD.value
+        )
     }
 }
 

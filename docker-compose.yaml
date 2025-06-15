@@ -1,0 +1,41 @@
+---
+services:
+  db:
+    image: mysql:8.0
+
+    container_name: database
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - db-data:/var/lib/mysql
+
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_root_password
+      - MYSQL_USER_FILE=/run/secrets/db_user
+      - MYSQL_PASSWORD_FILE=/run/secrets/db_password
+
+    secrets:
+      - db_root_password
+      - db_user
+      - db_password
+
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${DB_USER}", "-p", "${DB_PASSWORD}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+secrets:
+  db_root_password:
+    environment: DB_ROOT_PASSWORD
+  db_user:
+    environment: DB_USER
+  db_password:
+    environment: DB_PASSWORD
+
+volumes:
+  db-data:
+...
