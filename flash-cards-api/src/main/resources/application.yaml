@@ -4,7 +4,7 @@ spring:
     name: Flash Cards Application
 
   datasource:
-    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PASSWORD}
 ...

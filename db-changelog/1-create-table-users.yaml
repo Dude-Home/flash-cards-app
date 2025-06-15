@@ -1,3 +1,4 @@
+---
 databaseChangeLog:
   - changeSet:
       id: 1
@@ -28,3 +29,4 @@ databaseChangeLog:
                   name: created_at
                   type: timestamp
                   defaultValueComputed: CURRENT_TIMESTAMP
+...
