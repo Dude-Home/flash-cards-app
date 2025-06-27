@@ -1,5 +1,5 @@
 ---
-name: CI - Database Migration
+name: CI - Build jars
 on:
   workflow_call:
     outputs:
