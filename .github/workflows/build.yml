@@ -1,5 +1,5 @@
 ---
-name: CI - Build jars
+name: CI - Build
 on:
   workflow_call:
     outputs:

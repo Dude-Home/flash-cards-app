@@ -6,14 +6,6 @@ on:
       - main
 
 jobs:
-  build-and-deploy-app:
-    runs-on: self-hosted
-    steps:
-      - name: Checkout
-        uses: c
-
-
-      - name: Build
-        id: build
-        uses: ./build.yml
+  build-app:
+    uses: ./build.yml
 ...
