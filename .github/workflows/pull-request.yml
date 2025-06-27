@@ -5,5 +5,5 @@ on:
 
 jobs:
   build-app:
-    uses: ./build.yml
+    uses: ./build.yml@main
 ...
