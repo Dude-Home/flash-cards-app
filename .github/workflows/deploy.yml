@@ -1,0 +1,15 @@
+---
+name: CI - Database Migration
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy-app:
+    runs-on: self-hosted
+    steps:
+      - name: Build
+        id: build
+        uses: ./build.yml
+...

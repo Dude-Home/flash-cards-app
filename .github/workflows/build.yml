@@ -1,0 +1,31 @@
+---
+name: CI - Database Migration
+on:
+  workflow_call:
+    outputs:
+      jar_path:
+        description: 'Path to the built JAR file(s)'
+        value: ${{ jobs.build.outputs.jar_path }}
+
+jobs:
+  build:
+    runs-on: self-hosted
+    outputs:
+      jar_path: '/build/libs/flash-cards-app-0.0.1-SNAPSHOT.jar'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 23
+        uses: action/setup-java@v4
+        with:
+          java-version: 23
+          distribution: corretto
+          cache: gradle
+
+      - name: Build
+        run: |
+          chmod +x gradlew
+          ./gradlew build
+...
