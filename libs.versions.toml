@@ -1,7 +1,15 @@
 [versions]
+#Plugins
 spotbugs = "6.1.7"
 spotless = "7.0.2"
-spring-dependency-management = "1.1.7"
+dotenv = "4.0.0"
+gradle-liquibase = "3.0.2"
+spring-dm = "1.1.7"
+
+#Libraries
+picocli = "4.7.7"
+liquibase = "4.24.0"
+mysql = "8.0.33"
 
 spring = "3.4.4"
 junit = "5.12.1"
@@ -11,10 +19,16 @@ junit-platform = "1.12.1"
 [plugins]
 spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugs" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
-
+dotenv = { id = "co.uzzu.dotenv.gradle", version.ref = "dotenv"}
+gradle-liquibase = { id = "org.liquibase.gradle", version.ref = "gradle-liquibase" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dm" }
 
 [libraries]
+
+picocli = { module = "info.picocli:picocli", version.ref = "picocli" }
+liquibase-core = { module = "org.liquibase:liquibase-core", version.ref = "liquibase" }
+mysql = { module = "mysql:mysql-connector-java", version.ref = "mysql" }
+
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring" }
 spring-boot-starter-data-rest = { module = "org.springframework.boot:spring-boot-starter-data-rest", version.ref = "spring" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring" }

@@ -13,19 +13,49 @@ val javaProjects = listOf(
     "flash-cards-api"
 )
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath(libs.liquibase.core)
+    }
+}
+
 plugins {
     java
     `java-library`
     `maven-publish`
     pmd
+
     alias(libs.plugins.spotbugs)
     alias(libs.plugins.spotless)
+    alias(libs.plugins.dotenv)
+
+    alias(libs.plugins.gradle.liquibase)
     alias(libs.plugins.spring.dependency.management)
 }
 
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(23))
+    }
+}
+
+dependencies {
+    liquibaseRuntime(libs.picocli)
+    liquibaseRuntime(libs.liquibase.core)
+    liquibaseRuntime(libs.mysql)
+}
+
+liquibase {
+    activities.register("updateDB") {
+        arguments = mapOf(
+            "changelogFile" to "db-changelog/db-changelog-master.mysql.yaml",
+            "url" to env.DB_URL.orElse(""),
+            "username" to env.DB_USER.orElse(""),
+            "password" to env.DB_PASSWORD.orElse("")
+        )
     }
 }
 

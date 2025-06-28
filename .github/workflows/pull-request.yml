@@ -1,9 +1,7 @@
 ---
-name: CI - Deploy
+name: CI - Check PR
 on:
-  push:
-    branches:
-      - main
+  pull_request:
 
 jobs:
   build-app:
