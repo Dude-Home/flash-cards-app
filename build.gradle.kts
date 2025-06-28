@@ -52,9 +52,9 @@ liquibase {
     activities.register("updateDB") {
         arguments = mapOf(
             "changelogFile" to "db-changelog/db-changelog-master.mysql.yaml",
-            "url" to (env.DB_URL?.value ?: ""),
-            "username" to (env.DB_USER?.value ?: ""),
-            "password" to (env.DB_PASSWORD?.value ?: "")
+            "url" to env.DB_URL.orElse(""),
+            "username" to env.DB_USER.orElse(""),
+            "password" to env.DB_PASSWORD.orElse("")
         )
     }
 }
